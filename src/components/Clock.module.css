@@ -1,8 +1,14 @@
-.clock {
+.container {
     position: absolute;
     bottom: 0;
     right: 0;
+}
+
+.clock {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     color: white;
-    padding: 20px;
+    padding: 1rem;
     font-size: 2rem;
 }

@@ -7,6 +7,7 @@ function Clock() {
     const [hours, setHours] = useState<number>(0);
 
     const [width, setWidth] = useState<number>();
+
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -33,27 +34,28 @@ function Clock() {
                     }
                 }
             }
-
-            // stores new width in state
+            // Storing new clock width in state
             null !== ref.current && setWidth(ref.current.offsetWidth);
         }, 1000);
         return () => clearInterval(interval);
     }, [seconds, minutes, hours, width]);
 
-    // set width to new width from state and animate
+    // set new width to container width from state and animate
     const style = React.useMemo(
         () => ({
             width: `${width}px`,
-            transition: "width 0.4s",
+            transition: "width 0.5s",
         }),
         [width]
     );
 
     return (
-        <div ref={ref} className={styles.clock} style={style}>
-            {hours < 10 ? `0${hours}` : hours}:
-            {minutes < 10 ? `0${minutes}` : minutes}:
-            {seconds < 10 ? `0${seconds}` : seconds}
+        <div className={styles.container} style={style}>
+            <div className={styles.clock} ref={ref}>
+                {hours < 10 ? `0${hours}` : hours}:
+                {minutes < 10 ? `0${minutes}` : minutes}:
+                {seconds < 10 ? `0${seconds}` : seconds}
+            </div>
         </div>
     );
 }
