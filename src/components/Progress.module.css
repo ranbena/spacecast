@@ -1,0 +1,15 @@
+.root {
+  width: 300px;
+  height: 5px;
+  border: 1px solid white;
+  position: relative;
+}
+
+.track {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+  transition: width 0.2s ease-out;
+}

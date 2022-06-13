@@ -23,3 +23,11 @@ export function formatTime(timestamp: number, withSeconds = true) {
 
   return formatted;
 }
+
+export function formatDate(date: Date, delimiter = "-") {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return [year, pad(month), pad(day)].join(delimiter);
+}

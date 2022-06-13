@@ -1,3 +1,2 @@
-export const GALLERY_INTERVAL = 10000;
-export const INITIAL_GALLERY_TRANSITION_DURATION = 300;
-export const GALLERY_TRANSITION_DURATION = 3000;
+export const ANIMATION_FPS = 6;
+export const GLOBE_SIZE = 500;

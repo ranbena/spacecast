@@ -1,18 +1,62 @@
-export type ApodT = {
-    copyright: string;
-    date: string;
-    explanation: string;
-    hdurl?: string;
-    media_type: string;
-    service_version: string;
-    title: string;
-    url: string;
-};
+import { fetchAndParse } from "./utils/fetch";
+import { formatDate } from "./utils/format";
 
-export const fetchData = async (): Promise<ApodT> => {
-    const response = await fetch(
-        `https://api.nasa.gov/planetary/apod?count=1&api_key=${process.env.REACT_APP_API_KEY}`
-    );
-    const data = await response.json();
-    return data[0];
-};
+const API_KEY = process.env.REACT_APP_API_KEY;
+
+export type DatesT = {
+  date: string;
+}[];
+
+type ImagesT = {
+  identifier: string;
+  caption: string;
+  image: string;
+  version: string;
+  centroid_coordinates: {
+    lat: number;
+    lon: number;
+  };
+  dscovr_j2000_position: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  lunar_j2000_position: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  sun_j2000_position: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  attitude_quaternions: {
+    q0: number;
+    q1: number;
+    q2: number;
+    q3: number;
+  };
+  date: string;
+}[];
+
+export function fetchDates(): Promise<DatesT> {
+  return fetchAndParse<DatesT>(
+    `https://api.nasa.gov/EPIC/api/natural/all?api_key=${API_KEY}`
+  );
+}
+
+export function fetchImagesData(timestamp: number): Promise<ImagesT> {
+  return fetchAndParse<ImagesT>(
+    `https://api.nasa.gov/EPIC/api/natural/date/${formatDate(
+      new Date(timestamp)
+    )}?api_key=${API_KEY}`
+  );
+}
+
+export function getImageUrl(datestring: string, fileName: string): string {
+  return `https://api.nasa.gov/EPIC/archive/natural/${formatDate(
+    new Date(datestring),
+    "/"
+  )}/png/${fileName}.png?api_key=${API_KEY}`;
+}

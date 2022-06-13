@@ -1,0 +1,11 @@
+.root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+.select,
+.globe {
+  width: 50%;
+  padding: 10px;
+}
